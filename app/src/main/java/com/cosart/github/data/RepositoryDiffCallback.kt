@@ -1,7 +1,6 @@
 package com.cosart.github.data
 
 import android.support.v7.util.DiffUtil
-import com.cosart.github.data.Repository
 
 class RepositoryDiffCallback(private val old: List<Repository>, private val new: List<Repository>) : DiffUtil.Callback() {
 

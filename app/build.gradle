@@ -30,7 +30,6 @@ ext {
     retrofitVersion = '2.4.0'
     picassoVersion = '2.71828'
     archLibVersion = '1.1.1'
-    okhttpVersion = '3.11.0'
 }
 
 dependencies {
@@ -50,8 +49,4 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
-
-    //okhttp
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 }

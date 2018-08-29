@@ -44,4 +44,3 @@ class GithubRepository {
 }
 
 private const val BASE_URL = "https://api.github.com"
-private const val TAG = "GithubRepository"

@@ -1,38 +1,33 @@
 package com.cosart.github.detail
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.cosart.github.R
-import com.cosart.github.data.Repository
+import com.cosart.github.data.RepositoryData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var repository: Repository
+    private lateinit var repositoryData: RepositoryData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         intent.extras?.apply {
-            repository = getParcelable(EXTRA_REPOSITORY)
+            repositoryData = getParcelable(EXTRA_REPOSITORY) ?: return
 
             Picasso.get()
-                    .load(repository.owner.avatar_url)
+                    .load(repositoryData.owner.avatar_url)
                     .into(avatar)
 
-            name.text = repository.full_name
-            owner.text = repository.owner.login
-            stars.text = getString(R.string.detail_star_gazers, repository.stargazers_count.toString())
-            score.text = getString(R.string.detail_score, repository.score.toString())
-            description.text = repository.description
+            name.text = repositoryData.full_name
+            owner.text = repositoryData.owner.login
+            stars.text = getString(R.string.detail_star_gazers, repositoryData.stargazers_count.toString())
+            score.text = getString(R.string.detail_score, repositoryData.score.toString())
+            description.text = repositoryData.description
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 }
 

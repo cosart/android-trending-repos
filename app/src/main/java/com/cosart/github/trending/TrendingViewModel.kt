@@ -1,36 +1,22 @@
 package com.cosart.github.trending
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import com.cosart.github.SingleLiveEvent
+import androidx.lifecycle.ViewModel
 import com.cosart.github.data.GithubRepository
-import com.cosart.github.data.TrendingData
 
-class TrendingViewModel : ViewModel(), Observer<TrendingData?> {
+class TrendingViewModel : ViewModel() {
 
-    private val githubRepository = GithubRepository.instance
-    val trendingData = SingleLiveEvent<TrendingData>()
+    private val githubRepository = GithubRepository
+    val trendingData = githubRepository.loadRepositories()
 
     init {
-        githubRepository.data.observeForever(this)
         loadRepositories()
     }
 
     fun loadRepositories() {
-        //TODO: Add search functionality, and take user input
-        val query = "topic:android"
-        val order = "desc"
-        val sort = "stars"
-
-        githubRepository.loadRepositories(query, order, sort)
+        githubRepository.loadRepositories()
     }
 
-    override fun onChanged(t: TrendingData?) {
-        trendingData.postValue(t)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        githubRepository.data.removeObserver(this)
+    fun refresh() {
+        githubRepository.refresh()
     }
 }

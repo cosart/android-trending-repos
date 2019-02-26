@@ -1,30 +1,22 @@
 package com.cosart.github
 
 import android.app.Application
-import android.os.StrictMode
-import android.util.Log
+import timber.log.Timber
 
 class GithubApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
 
         if (BuildConfig.DEBUG) {
-            Log.w(TAG, "Strict mode enabled")
-            StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder()
-                    .detectDiskReads()
-                    .detectDiskWrites()
-                    .detectNetwork()
-                    .penaltyLog()
-                    .build())
-            StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder()
-                    .detectLeakedSqlLiteObjects()
-                    .detectLeakedClosableObjects()
-                    .penaltyLog()
-                    .penaltyDeath()
-                    .build())
+            Timber.plant(Timber.DebugTree())
+            Timber.w("Tree planted")
         }
     }
-}
 
-private const val TAG = "GithubApplication"
+    companion object {
+        private lateinit var instance: GithubApplication
+        fun get() = instance
+    }
+}
